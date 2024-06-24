@@ -15,13 +15,13 @@ NUM_HEADS, HIDDEN_SIZE = 4, 256
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-i", "--input", type=str, required=True, help="Path to LightGlue ONNX model."
+        "-i", "--input", type=str, default="weights/sift_lightglue.onnx", help="Path to LightGlue ONNX model."
     )
     parser.add_argument(
         "-o", "--output", type=str, help="Path to output fused LightGlue ONNX model."
     )
     parser.add_argument(
-        "--cpu", action="store_true", help="Whether to optimize for CPU."
+        "--cpu", default=True , action="store_true", help="Whether to optimize for CPU."
     )
 
     return parser.parse_args()
