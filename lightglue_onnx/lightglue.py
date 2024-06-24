@@ -247,6 +247,7 @@ class LightGlue(nn.Module):
     features = {
         "superpoint": ("superpoint_lightglue", 256),
         "disk": ("disk_lightglue", 128),
+        "sift": ("sift_lightglue", 128),
     }
 
     def __init__(self, features="superpoint", **conf) -> None:
@@ -263,7 +264,11 @@ class LightGlue(nn.Module):
             self.input_proj = nn.Identity()
 
         head_dim = conf.descriptor_dim // conf.num_heads
-        self.posenc = LearnableFourierPositionalEncoding(2, head_dim)
+        if (features=="sift"):
+            bias=True
+        else:
+            bias=False
+        self.posenc = LearnableFourierPositionalEncoding(2+2*bias, head_dim)
 
         h, n, d = conf.num_heads, conf.n_layers, conf.descriptor_dim
 
@@ -313,6 +318,9 @@ class LightGlue(nn.Module):
 
         desc0 = self.input_proj(desc0)
         desc1 = self.input_proj(desc1)
+
+
+
 
         # cache positional embeddings
         encoding0 = self.posenc(kpts0)

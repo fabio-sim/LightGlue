@@ -9,7 +9,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--img_paths",
         nargs=2,
-        default=["assets/remapR1.bmp", "assets/remapL1.bmp"],
+        default=["assets/DSC_0410.JPG", "assets/DSC_0411.JPG"],
         required=False,
         type=str,
     )
